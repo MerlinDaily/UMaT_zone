@@ -1,6 +1,6 @@
 {
   "projects": {
-    "default": "umat_zone",
+    "default": "umat-zone",
     "umat_zone": "umat-zone"
   },
   "targets": {},
