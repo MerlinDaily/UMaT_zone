@@ -20,22 +20,20 @@ import '../../Screens/Platforms/WebSceens/Wcomments_screen.dart';
 class GPostCard extends StatefulWidget {
   final snap;
   final Groupid;
-  const GPostCard({ Key? key,this.snap,this.Groupid}) : super(key: key);
+  const GPostCard({Key? key, this.snap, this.Groupid}) : super(key: key);
 
   @override
   State<GPostCard> createState() => _GPostCardState();
 }
 
-
 class _GPostCardState extends State<GPostCard> {
-  bool islikeanimating=false;
-  bool liked=false;
-  int commentlen=0;
-
+  bool islikeanimating = false;
+  bool liked = false;
+  int commentlen = 0;
 
   //Build dynamiclink
-  buildDynamicLinks(String title,String image,String docId) async {
-    String url = "http://bsocialp.page.link";
+  buildDynamicLinks(String title, String image, String docId) async {
+    String url = "http://umat-zone.page.link";
     final DynamicLinkParameters parameters = DynamicLinkParameters(
       uriPrefix: url,
       link: Uri.parse('$url/$docId'),
@@ -48,75 +46,72 @@ class _GPostCardState extends State<GPostCard> {
         minimumVersion: '0',
         appStoreId: "000000000",
       ),
-      
       socialMetaTagParameters: SocialMetaTagParameters(
-          description: '',
-          imageUrl:
-          Uri.parse("$image"),
-          title: title),
+          description: '', imageUrl: Uri.parse("$image"), title: title),
     );
     final ShortDynamicLink dynamicUrl = await parameters.buildShortLink();
 
     String? desc = '${dynamicUrl.shortUrl.toString()}';
 
-    await Share.share(desc, subject: title,);
-
+    await Share.share(
+      desc,
+      subject: title,
+    );
   }
 
 //more options
-  _options(BuildContext context,User1 user1)async{
+  _options(BuildContext context, User1 user1) async {
     return showDialog(
         context: context,
-        builder: (context){
+        builder: (context) {
           return SimpleDialog(
             title: const Text(
-                "More options",
+              "More options",
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold,
               ),
             ),
             children: [
-             user1.Admin==true && widget.snap['author uid']!=user1.UID ?SimpleDialogOption() :SimpleDialogOption(
+              user1.Admin == true && widget.snap['author uid'] != user1.UID
+                  ? SimpleDialogOption()
+                  : SimpleDialogOption(
+                      padding: const EdgeInsets.all(15.0),
+                      child: const Text(
+                        "Edit Post",
+                        style: TextStyle(
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        if (kIsWeb) {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Webed(
+                              snap: widget.snap,
+                            ),
+                          ));
+                        } else {
+                          Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Geditpost(
+                              snap: widget.snap,
+                              groupid: widget.Groupid,
+                            ),
+                          ));
+                        }
+                      },
+                    ),
+              SimpleDialogOption(
                 padding: const EdgeInsets.all(15.0),
                 child: const Text(
-                    "Edit Post",
+                  "Delete",
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                onPressed: (){
-                  Navigator.of(context).pop();
-                  if(kIsWeb){
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=>Webed(
-                            snap: widget.snap,
-                          ),
-                        )
-                    );
-                  }else{
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=>Geditpost(
-                            snap: widget.snap,
-                            groupid: widget.Groupid,
-                          ),
-                        )
-                    );
-                  }
-                },
-              ),
-              SimpleDialogOption(
-                padding:  const EdgeInsets.all(15.0),
-                child: const Text(
-                    "Delete",
-                  style: TextStyle(
-                      fontStyle: FontStyle.italic,
-                  ),
-                ),
-                onPressed: ()async{
-                  String ress=  await FirestoreMethods().Deletegroupost(widget.Groupid,widget.snap['Post Uid']);
+                onPressed: () async {
+                  String ress = await FirestoreMethods()
+                      .Deletegroupost(widget.Groupid, widget.snap['Post Uid']);
                   Showsnackbar(ress, context);
                   Navigator.of(context).pop();
                 },
@@ -126,78 +121,78 @@ class _GPostCardState extends State<GPostCard> {
                 child: const Text(
                   "Cancel",
                   style: TextStyle(
-                      fontStyle: FontStyle.italic,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pop();
                 },
               )
             ],
           );
-        }
-    );
-
+        });
   }
-
 
   //dynamic _image;
-  Widget Postimage(dynamic image,BuildContext context,User1 user1){
-    if(image==""){
+  Widget Postimage(dynamic image, BuildContext context, User1 user1) {
+    if (image == "") {
       setState(() {
-        image=null;
+        image = null;
       });
     }
-    return image!=null? GestureDetector(
-      onDoubleTap: ()async{
-        await FirestoreMethods().likedgroupost(
-                                widget.snap['Post Uid'], 
-                                widget.snap['author uid'],
-                                 widget.snap['likes'], 
-                                 widget.Groupid);
-        setState(() {
-          islikeanimating=true;
-        });
-      },
-      child: Stack(
-        alignment: Alignment.center,
-        children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width*0.7,
-            child: Image.network(image),
-          ),
-          AnimatedOpacity(
-            duration: Duration(milliseconds: 200),
-            opacity: islikeanimating?1:0,
-            child: likeAnimation(
-              child: const Icon(
-                Icons.favorite,
-                color: Colors.redAccent,
-                size: 60,
-              ),
-              isAnimating: islikeanimating,
-              duration: const Duration(
-                  milliseconds: 400),
-              onEnd: (){
-                setState(() {
-                  islikeanimating=false;
-                });
-              },
+    return image != null
+        ? GestureDetector(
+            onDoubleTap: () async {
+              await FirestoreMethods().likedgroupost(
+                  widget.snap['Post Uid'],
+                  widget.snap['author uid'],
+                  widget.snap['likes'],
+                  widget.Groupid);
+              setState(() {
+                islikeanimating = true;
+              });
+            },
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.7,
+                  child: Image.network(image),
+                ),
+                AnimatedOpacity(
+                  duration: Duration(milliseconds: 200),
+                  opacity: islikeanimating ? 1 : 0,
+                  child: likeAnimation(
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.redAccent,
+                      size: 60,
+                    ),
+                    isAnimating: islikeanimating,
+                    duration: const Duration(milliseconds: 400),
+                    onEnd: () {
+                      setState(() {
+                        islikeanimating = false;
+                      });
+                    },
+                  ),
+                )
+              ],
             ),
           )
-        ],
-      ),
-    ):SizedBox();
+        : SizedBox();
   }
 
-
-  void likedf(String authoruid,List list){
+  void likedf(String authoruid, List list) {
     setState(() {
-      if(list.contains(authoruid)){
-        liked=true;
-      }else{liked=false;}
+      if (list.contains(authoruid)) {
+        liked = true;
+      } else {
+        liked = false;
+      }
     });
   }
+
   @override
   void initState() {
     super.initState();
@@ -207,24 +202,25 @@ class _GPostCardState extends State<GPostCard> {
   void dispose() {
     super.dispose();
   }
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
   }
+
   @override
   Widget build(BuildContext context) {
-    late  User1 user1=  Provider.of<UserProvider>(context).getUser;
-    late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late User1 user1 = Provider.of<UserProvider>(context).getUser;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
 
-    if(user1.UID==widget.snap['author uid']){
+    if (user1.UID == widget.snap['author uid']) {
       FirestoreMethods().Updatepostpic(widget.snap['Post Uid'], user1.ppurl!);
-      setState(() {
-
-      });
+      setState(() {});
     }
 
-    String authoruid=user1.UID!;
-    List list=widget.snap['likes'];
+    String authoruid = user1.UID!;
+    List list = widget.snap['likes'];
     likedf(authoruid, list);
     return Container(
       padding: const EdgeInsets.only(
@@ -242,52 +238,54 @@ class _GPostCardState extends State<GPostCard> {
               children: [
                 Row(
                   children: [
-                 widget.snap['Profile Pic']==""? const CircleAvatar(
-                  radius: 16,
-                      backgroundImage: AssetImage('Assets/hac.jpg'),
-                      backgroundColor: Colors.transparent,
-                 ): CircleAvatar(
-                      radius: 16,
-                      backgroundImage: NetworkImage(widget.snap['Profile Pic']),
-                      backgroundColor: Colors.transparent,
-                    ),
+                    widget.snap['Profile Pic'] == ""
+                        ? const CircleAvatar(
+                            radius: 16,
+                            backgroundImage: AssetImage('Assets/hac.jpg'),
+                            backgroundColor: Colors.transparent,
+                          )
+                        : CircleAvatar(
+                            radius: 16,
+                            backgroundImage:
+                                NetworkImage(widget.snap['Profile Pic']),
+                            backgroundColor: Colors.transparent,
+                          ),
                     Expanded(
                         child: Padding(
-                            child:Column(
+                            child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   widget.snap['author'],
-                                  style:  TextStyle(
+                                  style: TextStyle(
                                       fontWeight: FontWeight.bold,
-                                      color:Color(themedata.CardTextColor)
-                                  ),)
+                                      color: Color(themedata.CardTextColor)),
+                                )
                               ],
-                            ) ,
-                            padding:const EdgeInsets.only(
-                                left: 10.0
-                            )
-                        )
-                    ),
-                    widget.snap['author uid']==user1.UID || user1.Admin==true ? IconButton(
-                      onPressed: ()=>_options(context,user1),
-                      icon:  Icon(
-                        Icons.more_vert,
-                        color: Color(themedata.CardIconColor),
-                      ),
-                    ):const SizedBox()
+                            ),
+                            padding: const EdgeInsets.only(left: 10.0))),
+                    widget.snap['author uid'] == user1.UID ||
+                            user1.Admin == true
+                        ? IconButton(
+                            onPressed: () => _options(context, user1),
+                            icon: Icon(
+                              Icons.more_vert,
+                              color: Color(themedata.CardIconColor),
+                            ),
+                          )
+                        : const SizedBox()
                   ],
                 ),
                 Container(
-                  padding:const EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 5,
                   ),
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width*0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       widget.snap['title'],
-                      style:  TextStyle(
+                      style: TextStyle(
                         fontSize: 22,
                         color: Color(themedata.CardTextColor),
                       ),
@@ -295,41 +293,43 @@ class _GPostCardState extends State<GPostCard> {
                   ),
                 ),
                 Container(
-                  padding:const EdgeInsets.only(
+                  padding: const EdgeInsets.only(
                     top: 5,
                   ),
                   child: SizedBox(
-                    width: MediaQuery.of(context).size.width*0.8,
+                    width: MediaQuery.of(context).size.width * 0.8,
                     child: Text(
                       widget.snap['detail'],
-                      style:  TextStyle(
+                      style: TextStyle(
                         fontSize: 14,
                         color: Color(themedata.CardTextColor),
                       ),
                     ),
                   ),
                 ),
-                const SizedBox(height: 10,),
-                Postimage(widget.snap['Image Url'], context,user1),
+                const SizedBox(
+                  height: 10,
+                ),
+                Postimage(widget.snap['Image Url'], context, user1),
                 Container(
                   padding: const EdgeInsets.only(
                     top: 3.0,
                   ),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    child:   Text(
-                      DateFormat.yMMMd().format(widget.snap['Post Time'].toDate(),),
+                    child: Text(
+                      DateFormat.yMMMd().format(
+                        widget.snap['Post Time'].toDate(),
+                      ),
                       style: const TextStyle(
                           color: Colors.grey,
                           fontSize: 12,
-                          fontStyle: FontStyle.italic
-                      ),
-
+                          fontStyle: FontStyle.italic),
                     ),
                   ),
                 ),
-               const Divider(
-                color: Colors.grey,  
+                const Divider(
+                  color: Colors.grey,
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(
@@ -339,7 +339,7 @@ class _GPostCardState extends State<GPostCard> {
                     children: [
                       Text(
                         "${widget.snap['likes'].length}",
-                        style:  TextStyle(
+                        style: TextStyle(
                           color: Color(themedata.CardTextColor),
                         ),
                       ),
@@ -347,64 +347,56 @@ class _GPostCardState extends State<GPostCard> {
                         isAnimating: widget.snap['likes'].contains(user1.UID),
                         smallLike: true,
                         child: IconButton(
-                            onPressed: ()async{
+                            onPressed: () async {
                               await FirestoreMethods().likedgroupost(
-                                widget.snap['Post Uid'], 
-                                widget.snap['author uid'],
-                                 widget.snap['likes'], 
-                                 widget.Groupid);
+                                  widget.snap['Post Uid'],
+                                  widget.snap['author uid'],
+                                  widget.snap['likes'],
+                                  widget.Groupid);
                             },
-                            icon: liked? const Icon(
-                              Icons.favorite,
-                              color: Colors.red,
-                            )
-                                :  Icon(
-                              Icons.favorite_border_outlined,
-                              color: Color(themedata.CardIconColor),
-                            )
-                        ),
+                            icon: liked
+                                ? const Icon(
+                                    Icons.favorite,
+                                    color: Colors.red,
+                                  )
+                                : Icon(
+                                    Icons.favorite_border_outlined,
+                                    color: Color(themedata.CardIconColor),
+                                  )),
                       ),
-                      const Expanded(
-                          child: SizedBox()
-                      ),
+                      const Expanded(child: SizedBox()),
                       Text(
                         "${widget.snap['nocomments']}",
-                        style:  TextStyle(
+                        style: TextStyle(
                           color: Color(themedata.CardTextColor),
                         ),
-                        ),
+                      ),
                       IconButton(
-                          onPressed: (){
-                            if(kIsWeb){
-                              Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context)=>Wcommentd(
-                                      snap: widget.snap,
-                                    ),
-                                  )
-                              );
-                            }else{
-                             Navigator.of(context).push(
-                                  MaterialPageRoute(
-                                    builder: (context)=>GcommentsScreen(
-                                      snap: widget.snap,
-                                      groupid: widget.Groupid,
-                                    ),
-                                  )
-                              );
+                          onPressed: () {
+                            if (kIsWeb) {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => Wcommentd(
+                                  snap: widget.snap,
+                                ),
+                              ));
+                            } else {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => GcommentsScreen(
+                                  snap: widget.snap,
+                                  groupid: widget.Groupid,
+                                ),
+                              ));
                             }
                           },
                           icon: FaIcon(
                             FontAwesomeIcons.comments,
                             color: Color(themedata.CardIconColor),
-                          )
-                      ),
-                      const Expanded(
-                          child: SizedBox()
-                      ),
+                          )),
+                      const Expanded(child: SizedBox()),
                       //TODO:Work on group share buttons in future versions
                       IconButton(
-                          onPressed: null/*(){
+                        onPressed:
+                            null /*(){
                                   try{
                 buildDynamicLinks(widget.snap['title'], widget.snap['Profile Pic'], widget.snap['Post Uid']);
                 }catch(e){
@@ -415,11 +407,12 @@ class _GPostCardState extends State<GPostCard> {
                   Showsnackbar(e.toString(), context);
                   }
                 }
-                          }*/,
-                          icon:  Icon(
-                            Icons.share,
-                            color: Color(themedata.CardIconColor),
-                          ),
+                          }*/
+                        ,
+                        icon: Icon(
+                          Icons.share,
+                          color: Color(themedata.CardIconColor),
+                        ),
                       ),
                     ],
                   ),

@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "bsocialp"
-  }
+    "default": "umat_zone",
+    "umat_zone": "umat-zone"
+  },
+  "targets": {},
+  "etags": {}
 }

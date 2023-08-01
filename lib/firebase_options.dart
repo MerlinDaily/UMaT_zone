@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -46,31 +49,21 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyANUxR9CkPkRS1LJFfv92gVWssvkUuFxjs',
-    appId: '1:753826641492:web:585cc77b366979f7a25fc1',
-    messagingSenderId: '753826641492',
-    projectId: 'bsocialp',
-    authDomain: 'bsocialp.firebaseapp.com',
-    storageBucket: 'bsocialp.appspot.com',
-    measurementId: 'G-F06LFWW30W',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCNU4hDLJnu4AnDY_9R5OVeJpL_izckYnA',
-    appId: '1:753826641492:android:abea7295963a275ca25fc1',
-    messagingSenderId: '753826641492',
-    projectId: 'bsocialp',
-    storageBucket: 'bsocialp.appspot.com',
+    apiKey: 'AIzaSyDhFZ7FQVpP_juyAE6_I0pLRpUR51Wj4eg',
+    appId: '1:644208405876:android:adbb201e9d5fdd786ed021',
+    messagingSenderId: '644208405876',
+    projectId: 'umat-zone',
+    storageBucket: 'umat-zone.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD0I7zUPIc1yRJTbCbeeh5owsUgrDsg83w',
-    appId: '1:753826641492:ios:9d01f7e9f0aa3f65a25fc1',
-    messagingSenderId: '753826641492',
-    projectId: 'bsocialp',
-    storageBucket: 'bsocialp.appspot.com',
-    iosClientId: '753826641492-qh2n9ph68aifhcjt6udh59pea1h0utah.apps.googleusercontent.com',
+    apiKey: 'AIzaSyBj4iCajiOiJxmGpaj7g9re0Qkzk6ViS0Q',
+    appId: '1:644208405876:ios:ada7fbd8538d5c7b6ed021',
+    messagingSenderId: '644208405876',
+    projectId: 'umat-zone',
+    storageBucket: 'umat-zone.appspot.com',
+    iosClientId: '644208405876-60umh9pippttd0d3n8nm1gthj36c5l5t.apps.googleusercontent.com',
     iosBundleId: 'com.blake.social',
   );
 }

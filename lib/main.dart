@@ -1,5 +1,3 @@
-
-
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -17,12 +15,11 @@ import 'Screens/Wrapper.dart';
 import 'Services/auth.dart';
 import 'firebase_options.dart';
 
-void main() async{
+void main() async {
   //Initialize Firebase functions
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-
   );
 
   //Run App
@@ -38,31 +35,29 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         StreamProvider<User1?>.value(
-            value: AuthService().user,
-            initialData: null),
+            value: AuthService().user, initialData: null),
         ChangeNotifierProvider(
-          create: (_)=> UserProvider(),
+          create: (_) => UserProvider(),
         ),
         ChangeNotifierProvider(
-          create: (_)=> ThemeProvider(),
-          )
+          create: (_) => ThemeProvider(),
+        )
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
         home: AnimatedSplashScreen(
-          splash: Splashscreen(), 
+          splash: Splashscreen(),
           nextScreen: Wrapper(),
           splashTransition: SplashTransition.fadeTransition,
           backgroundColor: Colors.white,
-          ),
+        ),
         routes: {
-          '/register':(context)=>Register(),
-          '/Profile':(context)=>Profile(),
-          '/reset':(context)=>Resetpass(),
-          '/wprofile':(context)=>Wprofile(),
+          '/register': (context) => Register(),
+          '/Profile': (context) => Profile(),
+          '/reset': (context) => Resetpass(),
+          '/wprofile': (context) => Wprofile(),
         },
       ),
     );
   }
 }
-
