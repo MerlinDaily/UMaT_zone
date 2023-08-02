@@ -1,7 +1,7 @@
 {
   "projects": {
-    "default": "umat-zone",
-    "umat_zone": "umat-zone"
+    "default": "umat-zone"
+    
   },
   "targets": {},
   "etags": {}
