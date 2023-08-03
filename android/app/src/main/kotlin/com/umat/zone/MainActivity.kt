@@ -1,4 +1,4 @@
-package com.project.forum3
+package com.umat.zone
 
 import io.flutter.embedding.android.FlutterActivity
 
