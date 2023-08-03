@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:forum3/Models/Settings.dart';
-import 'package:forum3/Provider/Settings_provider.dart';
-import 'package:forum3/Services/Encryption.dart';
-import 'package:forum3/shared/error_handling.dart';
+import 'package:umat_zone/Models/Settings.dart';
+import 'package:umat_zone/Provider/Settings_provider.dart';
+import 'package:umat_zone/Services/Encryption.dart';
+import 'package:umat_zone/shared/error_handling.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import '../../Models/Users1.dart';

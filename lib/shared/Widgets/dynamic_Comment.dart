@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:forum3/Models/Settings.dart';
-import 'package:forum3/Provider/Settings_provider.dart';
-import 'package:forum3/shared/Widgets/dynamiccoms.dart';
+import 'package:umat_zone/Models/Settings.dart';
+import 'package:umat_zone/Provider/Settings_provider.dart';
+import 'package:umat_zone/shared/Widgets/dynamiccoms.dart';
 import 'package:provider/provider.dart';
 
 class dynamicCom extends StatefulWidget {

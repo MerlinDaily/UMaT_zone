@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:forum3/Models/Settings.dart';
-import 'package:forum3/Provider/Settings_provider.dart';
-import 'package:forum3/Provider/user_provider.dart';
-import 'package:forum3/Services/Firestoremethods.dart';
-import 'package:forum3/Services/Upload.dart';
-import 'package:forum3/shared/Pop_up.dart';
+import 'package:umat_zone/Models/Settings.dart';
+import 'package:umat_zone/Provider/Settings_provider.dart';
+import 'package:umat_zone/Provider/user_provider.dart';
+import 'package:umat_zone/Services/Firestoremethods.dart';
+import 'package:umat_zone/Services/Upload.dart';
+import 'package:umat_zone/shared/Pop_up.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 import '../../../Models/Users1.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forum3/Screens/Platforms/WebSceens/Webeditpost.dart';
+import 'package:umat_zone/Screens/Platforms/WebSceens/Webeditpost.dart';
 
 class Webed extends StatefulWidget {
   final snap;

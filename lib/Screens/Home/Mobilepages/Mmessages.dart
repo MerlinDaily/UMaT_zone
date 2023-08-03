@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:forum3/Models/Settings.dart';
-import 'package:forum3/Provider/Settings_provider.dart';
-import 'package:forum3/Screens/Home/Mobilepages/MchatSearch.dart';
-import 'package:forum3/Screens/Home/Mobilepages/MmChatScreen.dart';
-import 'package:forum3/shared/Widgets/Chatheadcard.dart';
+import 'package:umat_zone/Models/Settings.dart';
+import 'package:umat_zone/Provider/Settings_provider.dart';
+import 'package:umat_zone/Screens/Home/Mobilepages/MchatSearch.dart';
+import 'package:umat_zone/Screens/Home/Mobilepages/MmChatScreen.dart';
+import 'package:umat_zone/shared/Widgets/Chatheadcard.dart';
 import 'package:provider/provider.dart';
 import '../../../Models/Users1.dart';
 import '../../../Provider/user_provider.dart';

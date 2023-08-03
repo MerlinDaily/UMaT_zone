@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:forum3/Screens/Platforms/WebSceens/webcom.dart';
+import 'package:umat_zone/Screens/Platforms/WebSceens/webcom.dart';
 
 class Wcommentd extends StatefulWidget {
   final snap;

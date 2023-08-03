@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:forum3/shared/Widgets/post_card.dart';
+import 'package:umat_zone/shared/Widgets/post_card.dart';
 
 class WebHome extends StatefulWidget {
   const WebHome({Key? key}) : super(key: key);

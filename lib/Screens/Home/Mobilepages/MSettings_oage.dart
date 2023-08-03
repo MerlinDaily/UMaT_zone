@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:forum3/Models/Settings.dart';
-import 'package:forum3/Models/Users1.dart';
-import 'package:forum3/Provider/Settings_provider.dart';
-import 'package:forum3/Provider/user_provider.dart';
-import 'package:forum3/Services/Firestoremethods.dart';
-import 'package:forum3/shared/Pop_up.dart';
-import 'package:forum3/shared/Widgets/Animatedtogglebutton.dart';
+import 'package:umat_zone/Models/Settings.dart';
+import 'package:umat_zone/Models/Users1.dart';
+import 'package:umat_zone/Provider/Settings_provider.dart';
+import 'package:umat_zone/Provider/user_provider.dart';
+import 'package:umat_zone/Services/Firestoremethods.dart';
+import 'package:umat_zone/shared/Pop_up.dart';
+import 'package:umat_zone/shared/Widgets/Animatedtogglebutton.dart';
 import 'package:provider/provider.dart';
 
 //TODO: Link Custom Theme page for v1.0.2

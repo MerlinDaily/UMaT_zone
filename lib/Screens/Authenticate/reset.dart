@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:forum3/Services/auth.dart';
+import 'package:umat_zone/Services/auth.dart';
 
 class Resetpass extends StatefulWidget {
   Resetpass({Key? key}) : super(key: key);

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forum3/Services/Firestoremethods.dart';
-import 'package:forum3/shared/Pop_up.dart';
+import 'package:umat_zone/Services/Firestoremethods.dart';
+import 'package:umat_zone/shared/Pop_up.dart';
 
 class webcomedit extends StatefulWidget {
   final snap;

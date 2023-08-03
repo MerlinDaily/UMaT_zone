@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:forum3/shared/loading.dart';
+import 'package:umat_zone/shared/loading.dart';
 import '../../Services/auth.dart';
 import 'dart:math' as math;
 
@@ -33,7 +33,7 @@ class _SinginState extends State<Singin> {
               shadowColor: Colors.black,
               title: const Center(
                   child: Text(
-                "Welcome To forum3",
+                "Welcome To umat_zone",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,

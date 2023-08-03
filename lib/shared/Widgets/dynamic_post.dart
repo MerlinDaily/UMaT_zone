@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import 'package:forum3/shared/Widgets/dynamiccard.dart';
+import 'package:umat_zone/shared/Widgets/dynamiccard.dart';
 
 class dynamicp extends StatefulWidget {
   final postid;

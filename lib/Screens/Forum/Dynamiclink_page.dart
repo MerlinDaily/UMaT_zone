@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forum3/shared/Widgets/dynamic_Comment.dart';
-import 'package:forum3/shared/Widgets/dynamic_post.dart';
+import 'package:umat_zone/shared/Widgets/dynamic_Comment.dart';
+import 'package:umat_zone/shared/Widgets/dynamic_post.dart';
 
 class dynamicHandler extends StatefulWidget {
   final postid;

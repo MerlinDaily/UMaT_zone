@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forum3/Models/Settings.dart';
-import 'package:forum3/Provider/Settings_provider.dart';
+import 'package:umat_zone/Models/Settings.dart';
+import 'package:umat_zone/Provider/Settings_provider.dart';
 import 'package:provider/provider.dart';
 import '../Pop_up.dart';
 

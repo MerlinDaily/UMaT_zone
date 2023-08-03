@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:forum3/Provider/user_provider.dart';
-import 'package:forum3/Screens/Platforms/WebSceens/Whome.dart';
-import 'package:forum3/Screens/Platforms/WebSceens/Wsearch.dart';
-import 'package:forum3/Screens/Platforms/WebSceens/wpost.dart';
-import 'package:forum3/Services/Upload.dart';
+import 'package:umat_zone/Provider/user_provider.dart';
+import 'package:umat_zone/Screens/Platforms/WebSceens/Whome.dart';
+import 'package:umat_zone/Screens/Platforms/WebSceens/Wsearch.dart';
+import 'package:umat_zone/Screens/Platforms/WebSceens/wpost.dart';
+import 'package:umat_zone/Services/Upload.dart';
 import 'package:provider/provider.dart';
 import '../../Models/Users1.dart';
 import '../../Services/auth.dart';

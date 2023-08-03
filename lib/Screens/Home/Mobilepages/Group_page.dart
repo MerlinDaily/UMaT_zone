@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:forum3/Models/Settings.dart';
-import 'package:forum3/Models/Users1.dart';
-import 'package:forum3/Provider/Settings_provider.dart';
-import 'package:forum3/Provider/user_provider.dart';
-import 'package:forum3/Screens/Home/Mobilepages/Create_groupPage.dart';
-import 'package:forum3/Screens/Home/Mobilepages/Group_home.dart';
-import 'package:forum3/shared/Widgets/Group_card.dart';
+import 'package:umat_zone/Models/Settings.dart';
+import 'package:umat_zone/Models/Users1.dart';
+import 'package:umat_zone/Provider/Settings_provider.dart';
+import 'package:umat_zone/Provider/user_provider.dart';
+import 'package:umat_zone/Screens/Home/Mobilepages/Create_groupPage.dart';
+import 'package:umat_zone/Screens/Home/Mobilepages/Group_home.dart';
+import 'package:umat_zone/shared/Widgets/Group_card.dart';
 import 'package:provider/provider.dart';
 
 class GroupPage extends StatefulWidget {

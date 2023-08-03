@@ -1,6 +1,6 @@
 {
-    "name": "forum3",
-    "short_name": "forum3",
+    "name": "umat_zone",
+    "short_name": "umat_zone",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

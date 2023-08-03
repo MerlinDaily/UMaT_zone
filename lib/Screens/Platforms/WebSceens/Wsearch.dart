@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:forum3/Screens/Platforms/WebSceens/WprofileScreen.dart';
-import 'package:forum3/shared/error_handling.dart';
+import 'package:umat_zone/Screens/Platforms/WebSceens/WprofileScreen.dart';
+import 'package:umat_zone/shared/error_handling.dart';
 import '../../../Services/Searchmethods.dart';
 import '../../../shared/Widgets/post_card.dart';
 

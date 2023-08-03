@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:forum3/Models/Settings.dart';
-import 'package:forum3/Services/auth.dart';
+import 'package:umat_zone/Models/Settings.dart';
+import 'package:umat_zone/Services/auth.dart';
 
 //Theme Settings Provider
 class ThemeProvider with ChangeNotifier {
