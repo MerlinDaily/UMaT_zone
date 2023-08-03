@@ -15,32 +15,32 @@ class Mhome extends StatefulWidget {
 }
 
 class _MhomeState extends State<Mhome> {
-late String sortby="Post Time";
+  late String sortby = "Post Time";
 
- _options(BuildContext context)async{
+  _options(BuildContext context) async {
     return showDialog(
         context: context,
-        builder: (context){
+        builder: (context) {
           return SimpleDialog(
             title: const Text(
-                "Sort by",
+              "Sort by",
               style: TextStyle(
                 fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.bold,
               ),
             ),
             children: [
-             SimpleDialogOption(
+              SimpleDialogOption(
                 padding: const EdgeInsets.all(15.0),
                 child: const Text(
-                    "Recent Buzz",
+                  "Recent Buzz",
                   style: TextStyle(
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                onPressed: (){
+                onPressed: () {
                   setState(() {
-                    sortby='Post Time';
+                    sortby = 'Post Time';
                   });
                   Navigator.pop(context);
                 },
@@ -48,14 +48,14 @@ late String sortby="Post Time";
               SimpleDialogOption(
                 padding: const EdgeInsets.all(15.0),
                 child: const Text(
-                    "Trending Buzz",
+                  "Trending Buzz",
                   style: TextStyle(
-                      fontStyle: FontStyle.italic,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
-                onPressed: ()async{
+                onPressed: () async {
                   setState(() {
-                    sortby='nol';
+                    sortby = 'nol';
                   });
                   Navigator.of(context).pop();
                 },
@@ -65,75 +65,76 @@ late String sortby="Post Time";
                 child: const Text(
                   "Cancel",
                   style: TextStyle(
-                      fontStyle: FontStyle.italic,
+                    fontStyle: FontStyle.italic,
                   ),
                 ),
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pop();
                 },
               )
             ],
           );
-        }
-    );
-
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-        late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
     return Scaffold(
-      backgroundColor:Color(themedata.ScaffoldbackColor), 
-appBar:AppBar(
-  backgroundColor: Color(themedata.AppbarbackColor),
-  elevation: 0.0,
-  actions: [
-    Row(
-      children: [
-          GestureDetector(
-            onTap:(){
-             _options(context);
-            } ,
-          child:  Text(
-              "Sort By",
-              style: TextStyle(
-          color:Color(themedata.AppbartextColor),
-          fontStyle: FontStyle.italic,
-          fontWeight: FontWeight.bold
+      backgroundColor: Color(themedata.ScaffoldbackColor),
+      appBar: AppBar(
+        backgroundColor: Color(themedata.AppbarbackColor),
+        elevation: 0.0,
+        actions: [
+          Row(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  _options(context);
+                },
+                child: Text(
+                  "Sort By",
+                  style: TextStyle(
+                      color: Color(themedata.AppbartextColor),
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold),
+                ),
               ),
+              IconButton(
+                onPressed: () {
+                  _options(context);
+                },
+                icon: FaIcon(
+                  FontAwesomeIcons.sort,
+                  color: Color(themedata.AppbariconColor),
+                ),
               ),
-        ),
-        IconButton(
-          onPressed: (){
-            _options(context);
-          },
-         icon: FaIcon(
-            FontAwesomeIcons.sort,
-            color: Color(themedata.AppbariconColor),
-         ),
-         ),
-      ],
-    ),
-  ],
-),
-  body: StreamBuilder(
-    stream: FirebaseFirestore.instance.collection('Posts').orderBy(sortby,descending: true).snapshots(),
-      builder: (context, AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>>snapshot){
-      if(snapshot.connectionState==ConnectionState.waiting){
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-      }
-      return ListView.builder(
-        itemCount: snapshot.data!.docs.length,
-          itemBuilder: (context, index) => Container(
-        child: PostCard(
-          snap: snapshot.data!.docs[index].data(),
-        ),
-      )
-      );
-      },
-  ),
+            ],
+          ),
+        ],
+      ),
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('Posts')
+            .orderBy(sortby, descending: true)
+            .snapshots(),
+        builder: (context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+          return ListView.builder(
+              itemCount: snapshot.data!.docs.length,
+              itemBuilder: (context, index) => Container(
+                    child: PostCard(
+                      snap: snapshot.data!.docs[index].data(),
+                    ),
+                  ));
+        },
+      ),
     );
   }
 }

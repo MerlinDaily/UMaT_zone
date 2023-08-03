@@ -5,19 +5,18 @@ import 'package:forum3/shared/Pop_up.dart';
 class webcomedit extends StatefulWidget {
   final snap;
   final postid;
-  const webcomedit({Key? key,this.snap,this.postid}) : super(key: key);
+  const webcomedit({Key? key, this.snap, this.postid}) : super(key: key);
 
   @override
   State<webcomedit> createState() => _webcomeditState();
 }
 
 class _webcomeditState extends State<webcomedit> {
-
-  TextEditingController _comment=TextEditingController();
+  TextEditingController _comment = TextEditingController();
 
   @override
   void initState() {
-    _comment.text=widget.snap['detail'];
+    _comment.text = widget.snap['detail'];
     super.initState();
   }
 
@@ -40,12 +39,11 @@ class _webcomeditState extends State<webcomedit> {
       body: SafeArea(
         child: Center(
           child: Container(
-            padding:const EdgeInsets.all(60),
+            padding: const EdgeInsets.all(60),
             child: Card(
               elevation: 2.0,
               shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(60.0)
-              ),
+                  borderRadius: BorderRadius.circular(60.0)),
               child: Container(
                 padding: const EdgeInsets.all(50),
                 child: Column(
@@ -54,10 +52,11 @@ class _webcomeditState extends State<webcomedit> {
                     Row(
                       children: [
                         CircleAvatar(
-                          backgroundImage: NetworkImage(widget.snap['Profile Pic']),
+                          backgroundImage:
+                              NetworkImage(widget.snap['Profile Pic']),
                         ),
                         SizedBox(
-                          width: MediaQuery.of(context).size.width*0.01,
+                          width: MediaQuery.of(context).size.width * 0.01,
                         ),
                         SizedBox(
                           child: Text(widget.snap['author']),
@@ -65,7 +64,7 @@ class _webcomeditState extends State<webcomedit> {
                       ],
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width*0.7,
+                      width: MediaQuery.of(context).size.width * 0.7,
                       child: TextField(
                         maxLines: 8,
                         controller: _comment,
@@ -75,8 +74,7 @@ class _webcomeditState extends State<webcomedit> {
                         ),
                       ),
                     ),
-
-                    const  Divider(
+                    const Divider(
                       thickness: 2,
                       height: 20,
                     ),
@@ -86,19 +84,20 @@ class _webcomeditState extends State<webcomedit> {
                     Align(
                       alignment: Alignment.bottomRight,
                       child: ElevatedButton(
-                        onPressed: ()async{
-                          String ress=await FirestoreMethods().Editcomment(widget.postid, widget.snap['Comment Uid'], _comment.text);
-                        await  Showsnackbar(ress, context);
-                        Navigator.of(context).pop();
+                        onPressed: () async {
+                          String ress = await FirestoreMethods().Editcomment(
+                              widget.postid,
+                              widget.snap['Comment Uid'],
+                              _comment.text);
+                          await Showsnackbar(ress, context);
+                          Navigator.of(context).pop();
                         },
                         child: Text(
                           "Edit Comment",
-                          style: TextStyle(
-
-                          ),
+                          style: TextStyle(),
                         ),
                         style: ElevatedButton.styleFrom(
-                            elevation: 2.0, 
+                            elevation: 2.0,
                             backgroundColor: Colors.lightBlueAccent,
                             shadowColor: Colors.black,
                             side: const BorderSide(
@@ -106,9 +105,7 @@ class _webcomeditState extends State<webcomedit> {
                               width: 2.0,
                             ),
                             shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(100.0)
-                            )
-                        ),
+                                borderRadius: BorderRadius.circular(100.0))),
                       ),
                     )
                   ],

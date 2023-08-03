@@ -15,26 +15,27 @@ class Request_page extends StatefulWidget {
 class _Request_pageState extends State<Request_page> {
   @override
   Widget build(BuildContext context) {
-        late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
     return Scaffold(
       backgroundColor: Color(themedata.ScaffoldbackColor),
-appBar: AppBar(
-  backgroundColor: Color(themedata.AppbarbackColor),
-  centerTitle: true,
-  iconTheme:  IconThemeData(
-    color: Color(themedata.AppbariconColor)
-  ),
-  title: Text(
-    "Requests",
-    style: TextStyle(
-      color: Color(themedata.AppbartextColor)
-    ),
-  ),
-),
+      appBar: AppBar(
+        backgroundColor: Color(themedata.AppbarbackColor),
+        centerTitle: true,
+        iconTheme: IconThemeData(color: Color(themedata.AppbariconColor)),
+        title: Text(
+          "Requests",
+          style: TextStyle(color: Color(themedata.AppbartextColor)),
+        ),
+      ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Requests').orderBy('Request Time',descending: true).snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>>snapshot){
-          if(snapshot.connectionState==ConnectionState.waiting){
+        stream: FirebaseFirestore.instance
+            .collection('Requests')
+            .orderBy('Request Time', descending: true)
+            .snapshots(),
+        builder: (context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -42,11 +43,10 @@ appBar: AppBar(
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) => Container(
-                child: RequestCard(
-                  snap: snapshot.data!.docs[index].data(),
-                ),
-              )
-          );
+                    child: RequestCard(
+                      snap: snapshot.data!.docs[index].data(),
+                    ),
+                  ));
         },
       ),
     );

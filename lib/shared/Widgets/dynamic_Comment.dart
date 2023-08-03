@@ -5,10 +5,9 @@ import 'package:forum3/Provider/Settings_provider.dart';
 import 'package:forum3/shared/Widgets/dynamiccoms.dart';
 import 'package:provider/provider.dart';
 
-
 class dynamicCom extends StatefulWidget {
   final postid;
-  const dynamicCom({Key? key,this.postid}) : super(key: key);
+  const dynamicCom({Key? key, this.postid}) : super(key: key);
 
   @override
   State<dynamicCom> createState() => _dynamicComState();
@@ -17,7 +16,8 @@ class dynamicCom extends StatefulWidget {
 class _dynamicComState extends State<dynamicCom> {
   @override
   Widget build(BuildContext context) {
-    late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
     return Scaffold(
       backgroundColor: Colors.white,
       body: StreamBuilder(
@@ -25,10 +25,11 @@ class _dynamicComState extends State<dynamicCom> {
               .collection("Posts")
               .doc(widget.postid)
               .collection("comments")
-              .orderBy("Comment Time",descending: true)
+              .orderBy("Comment Time", descending: true)
               .snapshots(),
-          builder: (context,AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>>snapshots){
-            if(snapshots.connectionState==ConnectionState.waiting){
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshots) {
+            if (snapshots.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -36,15 +37,12 @@ class _dynamicComState extends State<dynamicCom> {
             return ListView.builder(
                 itemCount: snapshots.data!.docs.length,
                 itemBuilder: (context, index) => Container(
-                  child: dycomcard(
-                    snap: snapshots.data!.docs[index].data(),
-                    postid: widget.postid,
-                  ),
-                )
-            );
-          }
-      ),
+                      child: dycomcard(
+                        snap: snapshots.data!.docs[index].data(),
+                        postid: widget.postid,
+                      ),
+                    ));
+          }),
     );
   }
 }
-

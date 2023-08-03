@@ -23,7 +23,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        return ios;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for ios - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -47,30 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyANUxR9CkPkRS1LJFfv92gVWssvkUuFxjs',
-    appId: '1:753826641492:web:585cc77b366979f7a25fc1',
-    messagingSenderId: '753826641492',
-    projectId: 'bsocialp',
-    authDomain: 'bsocialp.firebaseapp.com',
-    storageBucket: 'bsocialp.appspot.com',
-    measurementId: 'G-F06LFWW30W',
+    apiKey: 'AIzaSyBnukmqUNHIu8RyXPVNBjnkb99AgYbM6MI',
+    appId: '1:644208405876:web:301c99f98521b3ef6ed021',
+    messagingSenderId: '644208405876',
+    projectId: 'umat-zone',
+    authDomain: 'umat-zone.firebaseapp.com',
+    storageBucket: 'umat-zone.appspot.com',
+    measurementId: 'G-7P8WT6Q9FF',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCNU4hDLJnu4AnDY_9R5OVeJpL_izckYnA',
-    appId: '1:753826641492:android:abea7295963a275ca25fc1',
-    messagingSenderId: '753826641492',
-    projectId: 'bsocialp',
-    storageBucket: 'bsocialp.appspot.com',
-  );
-
-  static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyD0I7zUPIc1yRJTbCbeeh5owsUgrDsg83w',
-    appId: '1:753826641492:ios:9d01f7e9f0aa3f65a25fc1',
-    messagingSenderId: '753826641492',
-    projectId: 'bsocialp',
-    storageBucket: 'bsocialp.appspot.com',
-    iosClientId: '753826641492-qh2n9ph68aifhcjt6udh59pea1h0utah.apps.googleusercontent.com',
-    iosBundleId: 'com.blake.social',
+    apiKey: 'AIzaSyDhFZ7FQVpP_juyAE6_I0pLRpUR51Wj4eg',
+    appId: '1:644208405876:android:3ffd2400ea7782ef6ed021',
+    messagingSenderId: '644208405876',
+    projectId: 'umat-zone',
+    storageBucket: 'umat-zone.appspot.com',
   );
 }

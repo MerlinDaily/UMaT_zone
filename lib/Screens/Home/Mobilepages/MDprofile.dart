@@ -8,8 +8,6 @@ import '../../../Models/Users1.dart';
 import '../../../Provider/user_provider.dart';
 import '../../../shared/Pop_up.dart';
 
-
-
 class MDprofile extends StatefulWidget {
   const MDprofile({Key? key}) : super(key: key);
 
@@ -17,25 +15,29 @@ class MDprofile extends StatefulWidget {
   State<MDprofile> createState() => _MDprofileState();
 }
 
-class _MDprofileState extends State<MDprofile>with
-    TickerProviderStateMixin {
+class _MDprofileState extends State<MDprofile> with TickerProviderStateMixin {
   late TabController _tabController;
-  int postlen=0;
-  getPostlen(String uid)async{
-    try{
-      QuerySnapshot snapshot=await FirebaseFirestore.instance.collection("Posts").where('author uid' ,isEqualTo: uid).get();
+  int postlen = 0;
+  getPostlen(String uid) async {
+    try {
+      QuerySnapshot snapshot = await FirebaseFirestore.instance
+          .collection("Posts")
+          .where('author uid', isEqualTo: uid)
+          .get();
       setState(() {
-        postlen=snapshot.docs.length;
-      });    }
-    catch(e){
+        postlen = snapshot.docs.length;
+      });
+    } catch (e) {
       Showsnackbar(e.toString(), context);
     }
   }
+
   @override
   void initState() {
     super.initState();
-    _tabController = TabController( vsync:this, length: 2);
+    _tabController = TabController(vsync: this, length: 2);
   }
+
   @override
   void dispose() {
     _tabController.dispose();
@@ -44,22 +46,19 @@ class _MDprofileState extends State<MDprofile>with
 
   @override
   Widget build(BuildContext context) {
-    late  User1 user1=  Provider.of<UserProvider>(context).getUser;
-    late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late User1 user1 = Provider.of<UserProvider>(context).getUser;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
     getPostlen(user1.UID!);
 
     return Scaffold(
       backgroundColor: Color(themedata.ScaffoldbackColor),
       appBar: AppBar(
         backgroundColor: Color(themedata.AppbarbackColor),
-        iconTheme: IconThemeData(
-            color: Color(themedata.AppbariconColor)
-        ),
+        iconTheme: IconThemeData(color: Color(themedata.AppbariconColor)),
         title: Text(
           "My Profile",
-          style: TextStyle(
-              color: Color(themedata.AppbartextColor)
-          ),
+          style: TextStyle(color: Color(themedata.AppbartextColor)),
         ),
         centerTitle: true,
       ),
@@ -76,8 +75,8 @@ class _MDprofileState extends State<MDprofile>with
                       radius: 50,
                     ),
                     SizedBox(
-                      width: MediaQuery.of(context).size.width*0.05,
-                      ),
+                      width: MediaQuery.of(context).size.width * 0.05,
+                    ),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -94,55 +93,53 @@ class _MDprofileState extends State<MDprofile>with
                             ),
                             const SizedBox(
                               width: 10,
-                              ),
-                             Text(
+                            ),
+                            Text(
                               "Posts",
                               style: TextStyle(
-                                  fontSize: 24,
-                                  fontStyle: FontStyle.italic,
-                                  fontWeight: FontWeight.bold,
-                                  color:Color(themedata.ScaffoldtextColor),
+                                fontSize: 24,
+                                fontStyle: FontStyle.italic,
+                                fontWeight: FontWeight.bold,
+                                color: Color(themedata.ScaffoldtextColor),
                               ),
                             )
                           ],
                         ),
-                        const SizedBox(height: 10,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         Row(
                           children: [
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                  elevation: 6.0, 
+                                  elevation: 6.0,
                                   backgroundColor: Colors.transparent,
                                   shadowColor: Colors.black,
                                   side: const BorderSide(
                                     color: Colors.blue,
                                     width: 2.0,
                                   ),
-
                                   shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(100.0)
-                                  )
-                              ),
-                              onPressed: (){
-                                Navigator.of(context).push(
-                                    MaterialPageRoute(
-                                      builder: (context)=>Medprofile(
-                                        drawer: true,
-                                        user1: user1,
-                                      ),
-                                    )
-                                );
+                                      borderRadius:
+                                          BorderRadius.circular(100.0))),
+                              onPressed: () {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Medprofile(
+                                    drawer: true,
+                                    user1: user1,
+                                  ),
+                                ));
                               },
-                              child:  Padding(
+                              child: Padding(
                                 padding: const EdgeInsets.only(
-                                  left:18.0,
+                                  left: 18.0,
                                   right: 18.0,
                                 ),
                                 child: Text(
                                   "Edit Profile",
                                   style: TextStyle(
-                                      color: Color(themedata.ScaffoldbuttonTextColor)
-                                  ),
+                                      color: Color(
+                                          themedata.ScaffoldbuttonTextColor)),
                                 ),
                               ),
                             )
@@ -152,7 +149,9 @@ class _MDprofileState extends State<MDprofile>with
                     )
                   ],
                 ),
-                const SizedBox(height: 15.0,),
+                const SizedBox(
+                  height: 15.0,
+                ),
                 Container(
                   alignment: Alignment.centerLeft,
                   child: Text(
@@ -160,53 +159,48 @@ class _MDprofileState extends State<MDprofile>with
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
-                        color: Color(themedata.ScaffoldtextColor)
-                    ),
+                        color: Color(themedata.ScaffoldtextColor)),
                   ),
                 ),
-                Row(
-                    children:[
-                      Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Name: ${user1.Name}",
-                          style: const TextStyle(
-                              color: Colors.grey
-                          ),
-                        ),
-                      ),
-                      const Expanded(
-                          child: SizedBox()
-                      ),
-                      user1.Gender==null|| user1.Gender==""? const SizedBox(): Container(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "Gender: ${user1.Gender}",
-                          style: const TextStyle(
-                              color: Colors.grey
-                          ),
-                        ),
-                      ),
-
-                      const SizedBox(width: 80,)
-                    ]
-                ),
-                user1.Bio==null|| user1.Bio==""? const SizedBox(): Container(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Bio: ${user1.Bio}",
-                    style: const TextStyle(
-                        color: Colors.grey
+                Row(children: [
+                  Container(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Name: ${user1.Name}",
+                      style: const TextStyle(color: Colors.grey),
                     ),
                   ),
-                ),
+                  const Expanded(child: SizedBox()),
+                  user1.Gender == null || user1.Gender == ""
+                      ? const SizedBox()
+                      : Container(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "Gender: ${user1.Gender}",
+                            style: const TextStyle(color: Colors.grey),
+                          ),
+                        ),
+                  const SizedBox(
+                    width: 80,
+                  )
+                ]),
+                user1.Bio == null || user1.Bio == ""
+                    ? const SizedBox()
+                    : Container(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          "Bio: ${user1.Bio}",
+                          style: const TextStyle(color: Colors.grey),
+                        ),
+                      ),
                 Container(
                   alignment: Alignment.centerLeft,
-                  child: user1.DOB==null || user1.DOB==""? const SizedBox()
-                      : Text("Date of Birth: ${user1.DOB}",
-                    style: const TextStyle(
-                        color: Colors.grey
-                    ),),
+                  child: user1.DOB == null || user1.DOB == ""
+                      ? const SizedBox()
+                      : Text(
+                          "Date of Birth: ${user1.DOB}",
+                          style: const TextStyle(color: Colors.grey),
+                        ),
                 ),
                 const Divider(
                   height: 40,
@@ -214,31 +208,8 @@ class _MDprofileState extends State<MDprofile>with
               ],
             ),
           ),
-
         ],
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

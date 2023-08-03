@@ -33,7 +33,7 @@ class _SinginState extends State<Singin> {
               shadowColor: Colors.black,
               title: const Center(
                   child: Text(
-                "Welcome To UMaT Zone",
+                "Welcome To forum3",
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.black,

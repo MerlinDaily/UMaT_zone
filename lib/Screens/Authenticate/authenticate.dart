@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:forum3/Screens/Authenticate/signin.dart';
 
@@ -10,12 +9,10 @@ class Authenticate extends StatefulWidget {
 }
 
 class _AuthenticateState extends State<Authenticate> {
-
-  bool showSignin=true;
+  bool showSignin = true;
 
   @override
   Widget build(BuildContext context) {
-
     return Container(
       child: Singin(),
     );

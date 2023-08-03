@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:forum3/Screens/Platforms/Layout.dart';
 import 'package:provider/provider.dart';
@@ -11,16 +10,14 @@ class Wrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    final user =Provider.of<User1?>(context);
+    final user = Provider.of<User1?>(context);
 
     print(user);
 
     //Checks if a user is signed in and returns the appropriate screen
-    if (user==null){
+    if (user == null) {
       return Authenticate();
-    }
-    else{
+    } else {
       return Layout();
     }
   }

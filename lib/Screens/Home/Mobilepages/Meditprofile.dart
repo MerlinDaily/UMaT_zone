@@ -9,13 +9,12 @@ import 'package:forum3/shared/Pop_up.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-
-
 class Medprofile extends StatefulWidget {
   final snap;
-   bool drawer;
-   User1? user1;
-   Medprofile({Key? key,this.snap,required this.drawer,this.user1}) : super(key: key);
+  bool drawer;
+  User1? user1;
+  Medprofile({Key? key, this.snap, required this.drawer, this.user1})
+      : super(key: key);
 
   @override
   State<Medprofile> createState() => _MedprofileState();
@@ -23,67 +22,63 @@ class Medprofile extends StatefulWidget {
 
 class _MedprofileState extends State<Medprofile> {
   dynamic image;
-  final Upload Selection=Upload();
-  TextEditingController Fname=TextEditingController();
-  TextEditingController Bio=TextEditingController();
-  TextEditingController username=TextEditingController();
-  TextEditingController DOB=TextEditingController();
-  TextEditingController gender=TextEditingController();
-late DateTime? _dateTime;
+  final Upload Selection = Upload();
+  TextEditingController Fname = TextEditingController();
+  TextEditingController Bio = TextEditingController();
+  TextEditingController username = TextEditingController();
+  TextEditingController DOB = TextEditingController();
+  TextEditingController gender = TextEditingController();
+  late DateTime? _dateTime;
 
-  final _formKey =GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
-
-  _selectimage(BuildContext context)async{
+  _selectimage(BuildContext context) async {
     return showDialog(
         context: context,
-        builder: (context){
+        builder: (context) {
           return SimpleDialog(
             title: const Text("Update Profile Picture"),
             children: [
               SimpleDialogOption(
                 padding: EdgeInsets.all(15.0),
                 child: const Text("Take a Photo"),
-                onPressed: ()async{
+                onPressed: () async {
                   Navigator.of(context).pop();
-                  dynamic file=await Selection.uploadpic(ImageSource.camera);
+                  dynamic file = await Selection.uploadpic(ImageSource.camera);
                   setState(() {
-                    image=file;
+                    image = file;
                   });
                 },
               ),
               SimpleDialogOption(
                 padding: EdgeInsets.all(15.0),
                 child: const Text("Choose from gallery"),
-                onPressed: ()async{
+                onPressed: () async {
                   Navigator.of(context).pop();
-                  dynamic file=await Selection.uploadpic(ImageSource.gallery);
+                  dynamic file = await Selection.uploadpic(ImageSource.gallery);
                   setState(() {
-                    image=file;
+                    image = file;
                   });
                 },
               ),
               SimpleDialogOption(
                 padding: EdgeInsets.all(15.0),
                 child: const Text("Cancel"),
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pop();
                 },
               )
             ],
           );
-        }
-    );
+        });
   }
-
 
   @override
   void initState() {
-
     super.initState();
   }
 
- /* @override
+  /* @override
   void didChangeDependencies() {
     try {
      !widget.drawer? Fname.text = widget.snap['Full Name']:Fname.text=widget.user1!.Name!;
@@ -109,7 +104,8 @@ late DateTime? _dateTime;
 
   @override
   Widget build(BuildContext context) {
-    late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
     return Scaffold(
       backgroundColor: Color(themedata.ScaffoldbackColor),
       appBar: AppBar(
@@ -118,7 +114,7 @@ late DateTime? _dateTime;
         iconTheme: IconThemeData(
           color: Color(themedata.AppbariconColor),
         ),
-        title:  Text(
+        title: Text(
           "Edit Profile",
           style: TextStyle(
             color: Color(themedata.AppbartextColor),
@@ -138,26 +134,26 @@ late DateTime? _dateTime;
                       children: [
                         Stack(
                           children: [
-                            image!=null? CircleAvatar(
-                              radius: 60.0,
-                              backgroundImage:MemoryImage(image) ,
-                            ):CircleAvatar(
-                              radius: 60.0,
-                              backgroundImage: NetworkImage(
-                                  !widget.drawer? widget.snap['profilepic']:
-                                  widget.user1!.ppurl!),
-                            ),
+                            image != null
+                                ? CircleAvatar(
+                                    radius: 60.0,
+                                    backgroundImage: MemoryImage(image),
+                                  )
+                                : CircleAvatar(
+                                    radius: 60.0,
+                                    backgroundImage: NetworkImage(!widget.drawer
+                                        ? widget.snap['profilepic']
+                                        : widget.user1!.ppurl!),
+                                  ),
                             Positioned(
                                 bottom: -5,
                                 left: 65,
                                 child: IconButton(
-                                    onPressed: ()=>_selectimage(context),
+                                    onPressed: () => _selectimage(context),
                                     icon: Icon(
                                       Icons.add_a_photo,
                                       color: Color(themedata.CardIconColor),
-                                    )
-                                )
-                            )
+                                    )))
                           ],
                         ),
                         const SizedBox(
@@ -168,32 +164,31 @@ late DateTime? _dateTime;
                             color: Color(themedata.CardTextColor),
                           ),
                           controller: Fname,
-                          validator: (val)=>val!.isEmpty ? "Enter Your Full Name" : null,
-                          onChanged: (val){
+                          validator: (val) =>
+                              val!.isEmpty ? "Enter Your Full Name" : null,
+                          onChanged: (val) {
                             setState(() {
-                            //  Fname.text=val;
+                              //  Fname.text=val;
                             });
                           },
                           decoration: InputDecoration(
                             label: const Text("Full Name"),
-                            labelStyle:  TextStyle(
+                            labelStyle: TextStyle(
                               color: Color(themedata.CardTextColor),
                             ),
                             hintText: "Enter Full Name",
-                            hintStyle:const TextStyle(
+                            hintStyle: const TextStyle(
                               color: Colors.grey,
-                            ) ,
+                            ),
                             filled: true,
                             fillColor: Colors.transparent,
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.redAccent
-                              ),
+                              borderSide:
+                                  const BorderSide(color: Colors.redAccent),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100.0),
-
                             ),
                           ),
                         ),
@@ -202,99 +197,103 @@ late DateTime? _dateTime;
                         ),
                         TextFormField(
                           controller: username,
-                          validator: (val)=>val!.isEmpty ? "Enter Your Username" : null,
-                          onChanged: (val){
+                          validator: (val) =>
+                              val!.isEmpty ? "Enter Your Username" : null,
+                          onChanged: (val) {
                             setState(() {
-                           //   username.text=val;
+                              //   username.text=val;
                             });
                           },
                           decoration: InputDecoration(
                             label: const Text("Username"),
-                            labelStyle:  TextStyle(
+                            labelStyle: TextStyle(
                               color: Color(themedata.CardTextColor),
                             ),
                             hintText: "Enter Nick Name",
                             filled: true,
                             fillColor: Colors.black,
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.redAccent
-                              ),
+                              borderSide:
+                                  const BorderSide(color: Colors.redAccent),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100.0),
-
                             ),
                           ),
-
                           style: const TextStyle(
                             color: Colors.white,
                           ),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         TextFormField(
                           controller: gender,
-                          validator: (val)=>val!.isEmpty ? "Enter Your Username" : null,
-                          onChanged: (val){
+                          validator: (val) =>
+                              val!.isEmpty ? "Enter Your Username" : null,
+                          onChanged: (val) {
                             setState(() {
-                            //  gender.text=val;
+                              //  gender.text=val;
                             });
                           },
                           decoration: InputDecoration(
                             label: const Text("Gender"),
-                            labelStyle:  TextStyle(
+                            labelStyle: TextStyle(
                               color: Color(themedata.CardTextColor),
                             ),
                             hintText: "Enter Gender",
                             filled: true,
                             fillColor: Colors.transparent,
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.redAccent
-                              ),
+                              borderSide:
+                                  const BorderSide(color: Colors.redAccent),
                               borderRadius: BorderRadius.circular(100.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100.0),
-
                             ),
                           ),
-                          style:  TextStyle(
+                          style: TextStyle(
                             color: Color(themedata.CardTextColor),
                           ),
                         ),
-                        const SizedBox(height: 10,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         ListTile(
                           leading: GestureDetector(
-                            onTap: (){
+                            onTap: () {
                               showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(1900),
-                                  lastDate: DateTime.now()
-                              ).then((value){
+                                      context: context,
+                                      initialDate: DateTime.now(),
+                                      firstDate: DateTime(1900),
+                                      lastDate: DateTime.now())
+                                  .then((value) {
                                 setState(() {
-                                  _dateTime=value;
-                                if(_dateTime!=null) {
-                                  DOB.text = " ${_dateTime!.year}  /  ${_dateTime!.month}  /  ${_dateTime!.day}";
-                                }
-                                  });
+                                  _dateTime = value;
+                                  if (_dateTime != null) {
+                                    DOB.text =
+                                        " ${_dateTime!.year}  /  ${_dateTime!.month}  /  ${_dateTime!.day}";
+                                  }
+                                });
                               });
                             },
-                            child:  FaIcon(
-                                FontAwesomeIcons.calendar,
-                                color: Color(themedata.CardIconColor),
+                            child: FaIcon(
+                              FontAwesomeIcons.calendar,
+                              color: Color(themedata.CardIconColor),
                             ),
                           ),
                           horizontalTitleGap: 0.0,
                           title: TextFormField(
                             textAlign: TextAlign.center,
                             controller: DOB,
-                            validator: (val)=>val!.isEmpty ? "Enter Your Date of Birth" : null,
-                            onChanged: (val){
+                            validator: (val) => val!.isEmpty
+                                ? "Enter Your Date of Birth"
+                                : null,
+                            onChanged: (val) {
                               setState(() {
-                            //    DOB.text=val;
+                                //    DOB.text=val;
                               });
                             },
                             decoration: InputDecoration(
@@ -306,30 +305,28 @@ late DateTime? _dateTime;
                               filled: true,
                               fillColor: Colors.transparent,
                               focusedBorder: OutlineInputBorder(
-                                borderSide: const BorderSide(
-                                    color: Colors.redAccent
-                                ),
+                                borderSide:
+                                    const BorderSide(color: Colors.redAccent),
                                 borderRadius: BorderRadius.circular(100.0),
                               ),
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(100.0),
-
                               ),
                             ),
-
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Color(themedata.CardTextColor),
-                            
                             ),
                           ),
                         ),
-                        const SizedBox( height: 10,),
+                        const SizedBox(
+                          height: 10,
+                        ),
                         TextFormField(
                           maxLines: 8,
                           controller: Bio,
-                          onChanged: (val){
+                          onChanged: (val) {
                             setState(() {
-                            //  Bio.text=val;
+                              //  Bio.text=val;
                             });
                           },
                           decoration: InputDecoration(
@@ -337,73 +334,88 @@ late DateTime? _dateTime;
                               "Bio",
                               textAlign: TextAlign.start,
                             ),
-                            labelStyle:  TextStyle(
+                            labelStyle: TextStyle(
                               color: Color(themedata.CardTextColor),
                             ),
-                            floatingLabelAlignment: FloatingLabelAlignment.start,
+                            floatingLabelAlignment:
+                                FloatingLabelAlignment.start,
                             floatingLabelBehavior: FloatingLabelBehavior.always,
                             hintText: "Write Something about yourself",
                             filled: true,
                             fillColor: Colors.transparent,
                             focusedBorder: OutlineInputBorder(
-                              borderSide: const BorderSide(
-                                  color: Colors.redAccent
-                              ),
+                              borderSide:
+                                  const BorderSide(color: Colors.redAccent),
                               borderRadius: BorderRadius.circular(10.0),
                             ),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0),
-
                             ),
                           ),
-
-                          style:  TextStyle(
+                          style: TextStyle(
                             color: Color(themedata.CardTextColor),
                           ),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                         Center(
                           child: ElevatedButton(
-                              onPressed: ()async{
-                                if(!widget.drawer){
-                                String ress= await FirestoreMethods().EditProfile(widget.snap['uid'], Fname.text, username.text, DOB.text, Bio.text, gender.text, image, widget.snap['profilepic']);
-                              Showsnackbar(ress, context);
-                                }else{
-                                  String ress= await FirestoreMethods().EditProfile(widget.user1!.UID!, Fname.text, username.text, DOB.text, Bio.text, gender.text, image, widget.user1!.ppurl!);
-                                  Showsnackbar(ress, context);
-                                }
-                                },
-                              child: const Padding(
-                                padding: EdgeInsets.only(
-                                    left:32.0,
-                                  right: 32.0
-                                ),
-                                child: Text(
-                                    "Save",
-                                  style: TextStyle(
-                                    color: Colors.lightBlueAccent,
-                                  ),
+                            onPressed: () async {
+                              if (!widget.drawer) {
+                                String ress = await FirestoreMethods()
+                                    .EditProfile(
+                                        widget.snap['uid'],
+                                        Fname.text,
+                                        username.text,
+                                        DOB.text,
+                                        Bio.text,
+                                        gender.text,
+                                        image,
+                                        widget.snap['profilepic']);
+                                Showsnackbar(ress, context);
+                              } else {
+                                String ress = await FirestoreMethods()
+                                    .EditProfile(
+                                        widget.user1!.UID!,
+                                        Fname.text,
+                                        username.text,
+                                        DOB.text,
+                                        Bio.text,
+                                        gender.text,
+                                        image,
+                                        widget.user1!.ppurl!);
+                                Showsnackbar(ress, context);
+                              }
+                            },
+                            child: const Padding(
+                              padding: EdgeInsets.only(left: 32.0, right: 32.0),
+                              child: Text(
+                                "Save",
+                                style: TextStyle(
+                                  color: Colors.lightBlueAccent,
                                 ),
                               ),
+                            ),
                             style: ElevatedButton.styleFrom(
-                                elevation: 6.0, 
-                                backgroundColor: Color(themedata.ScaffoldbuttonColor),
+                                elevation: 6.0,
+                                backgroundColor:
+                                    Color(themedata.ScaffoldbuttonColor),
                                 shadowColor: Colors.black,
                                 side: const BorderSide(
                                   color: Colors.blue,
                                   width: 2.0,
                                 ),
-
                                 shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(100.0)
-                                )
-                            ),
+                                    borderRadius:
+                                        BorderRadius.circular(100.0))),
                           ),
                         ),
-                        const SizedBox(height: 20,),
+                        const SizedBox(
+                          height: 20,
+                        ),
                       ],
-                    )
-                )
+                    ))
               ],
             ),
           ),
@@ -412,11 +424,3 @@ late DateTime? _dateTime;
     );
   }
 }
-
-
-
-
-
-
-
-

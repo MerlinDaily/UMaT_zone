@@ -12,18 +12,18 @@ import '../../../Provider/user_provider.dart';
 //TODO: Implement theme for dialog options
 class mChatbody extends StatefulWidget {
   final snap;
-  const mChatbody({Key? key,this.snap}) : super(key: key);
+  const mChatbody({Key? key, this.snap}) : super(key: key);
 
   @override
   State<mChatbody> createState() => _mChatbodyState();
 }
 
 class _mChatbodyState extends State<mChatbody> {
-
-  _options(BuildContext context,String author,String author_uid,String receiver, String receiver_uid,String message_uid)async{
+  _options(BuildContext context, String author, String author_uid,
+      String receiver, String receiver_uid, String message_uid) async {
     return showDialog(
         context: context,
-        builder: (context){
+        builder: (context) {
           return SimpleDialog(
             title: const Text(
               "More options",
@@ -41,8 +41,9 @@ class _mChatbodyState extends State<mChatbody> {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                onPressed: ()async{
-                  String ress=await FirestoreMethods().Deletemessage(author, author_uid, receiver, receiver_uid, message_uid);
+                onPressed: () async {
+                  String ress = await FirestoreMethods().Deletemessage(
+                      author, author_uid, receiver, receiver_uid, message_uid);
                   Showsnackbar(ress, context);
                   Navigator.of(context).pop();
                 },
@@ -55,27 +56,35 @@ class _mChatbodyState extends State<mChatbody> {
                     fontStyle: FontStyle.italic,
                   ),
                 ),
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pop();
                 },
               )
             ],
           );
-        }
-    );
+        });
   }
 
   @override
   Widget build(BuildContext context) {
-    late  User1 user1=  Provider.of<UserProvider>(context).getUser;
-    late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late User1 user1 = Provider.of<UserProvider>(context).getUser;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
     return Scaffold(
       backgroundColor: Color(themedata.ScaffoldbackColor),
-      body:  SafeArea(
+      body: SafeArea(
         child: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection('Chats').doc(user1.UID).collection("Chathead").doc(widget.snap['Receiver uid']).collection('message').orderBy("Message Time").snapshots(),
-          builder: (context, AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>>snapshot){
-            if(snapshot.connectionState==ConnectionState.waiting){
+          stream: FirebaseFirestore.instance
+              .collection('Chats')
+              .doc(user1.UID)
+              .collection("Chathead")
+              .doc(widget.snap['Receiver uid'])
+              .collection('message')
+              .orderBy("Message Time")
+              .snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(),
               );
@@ -83,34 +92,49 @@ class _mChatbodyState extends State<mChatbody> {
             return ListView.builder(
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) => Row(
-                  children: [
-                    user1.UID!=snapshot.data!.docs[index].data()['Receiver Uid']?  Expanded(
-                        child:  SizedBox()
-                    ):SizedBox(),
-                    Flexible(
-                      flex: 2,
-                      fit: FlexFit.tight,
-                      child: SizedBox(    
-                        child: GestureDetector(
-                          onLongPress: (){
-                            if(snapshot.data!.docs[index].data()['author uid']==user1.UID){
-                           _options(context, snapshot.data!.docs[index].data()['author'], user1.UID!, snapshot.data!.docs[index].data()['Receiver'], snapshot.data!.docs[index].data()['Receiver Uid'], snapshot.data!.docs[index].data()['Message Uid']);
-                            }else{
-                              Showsnackbar("Access Denied", context);
-                            }
-                          },
-                          child: chatcard(
-                            snap: snapshot.data!.docs[index].data(),
+                      children: [
+                        user1.UID !=
+                                snapshot.data!.docs[index]
+                                    .data()['Receiver Uid']
+                            ? Expanded(child: SizedBox())
+                            : SizedBox(),
+                        Flexible(
+                          flex: 2,
+                          fit: FlexFit.tight,
+                          child: SizedBox(
+                            child: GestureDetector(
+                              onLongPress: () {
+                                if (snapshot.data!.docs[index]
+                                        .data()['author uid'] ==
+                                    user1.UID) {
+                                  _options(
+                                      context,
+                                      snapshot.data!.docs[index]
+                                          .data()['author'],
+                                      user1.UID!,
+                                      snapshot.data!.docs[index]
+                                          .data()['Receiver'],
+                                      snapshot.data!.docs[index]
+                                          .data()['Receiver Uid'],
+                                      snapshot.data!.docs[index]
+                                          .data()['Message Uid']);
+                                } else {
+                                  Showsnackbar("Access Denied", context);
+                                }
+                              },
+                              child: chatcard(
+                                snap: snapshot.data!.docs[index].data(),
+                              ),
+                            ),
                           ),
                         ),
-                      ),
-                    ),
-                    user1.UID==snapshot.data!.docs[index].data()['Receiver Uid']?  Expanded(
-                        child:  SizedBox()
-                    ):SizedBox(),
-                  ],
-                )
-            );
+                        user1.UID ==
+                                snapshot.data!.docs[index]
+                                    .data()['Receiver Uid']
+                            ? Expanded(child: SizedBox())
+                            : SizedBox(),
+                      ],
+                    ));
           },
         ),
       ),

@@ -13,76 +13,72 @@ import 'package:forum3/shared/Pop_up.dart';
 import 'package:forum3/shared/Widgets/Groupchat_card.dart';
 import 'package:provider/provider.dart';
 
-
-
 class Gchatscreen extends StatefulWidget {
   final snap;
   final groupid;
-  const Gchatscreen({ Key? key,this.snap,this.groupid }) : super(key: key);
+  const Gchatscreen({Key? key, this.snap, this.groupid}) : super(key: key);
 
   @override
   State<Gchatscreen> createState() => _GchatscreenState();
 }
 
 class _GchatscreenState extends State<Gchatscreen> {
+  TextEditingController text = TextEditingController();
+  var plaintext, enctext;
+  late ScrollController _scrollController;
+  bool _showBackToTopButton = true;
 
-TextEditingController text=TextEditingController();
-var plaintext,enctext;
-late ScrollController _scrollController;
-bool _showBackToTopButton = true;
-
-_options(BuildContext context,dynamic snap)async{
+  _options(BuildContext context, dynamic snap) async {
     return showDialog(
         context: context,
-        builder: (context){
+        builder: (context) {
           return SimpleDialog(
             title: const Text("More options"),
             children: [
               SimpleDialogOption(
                 padding: const EdgeInsets.all(15.0),
                 child: const Text("Delete Message"),
-                onPressed: ()async{
-                String content=  await FirestoreMethods().Groupchatdelete(widget.groupid,snap['Message Uid']);
-                Showsnackbar(content, context);
+                onPressed: () async {
+                  String content = await FirestoreMethods()
+                      .Groupchatdelete(widget.groupid, snap['Message Uid']);
+                  Showsnackbar(content, context);
                   Navigator.pop(context);
                 },
               ),
               SimpleDialogOption(
                 padding: const EdgeInsets.all(15.0),
                 child: const Text("Cancel"),
-                onPressed: (){
+                onPressed: () {
                   Navigator.of(context).pop();
                 },
               )
             ],
           );
-        }
-    );
+        });
   }
-@override
+
+  @override
   void initState() {
-    _scrollController = ScrollController()
-      ..addListener(() {
-        
-      });
+    _scrollController = ScrollController()..addListener(() {});
     super.initState();
   }
 
-@override
+  @override
   void dispose() {
     _scrollController.dispose(); // dispose the controller
     super.dispose();
   }
 
-void _scrollToTop() {
+  void _scrollToTop() {
     _scrollController.animateTo(0,
         duration: const Duration(seconds: 1), curve: Curves.linear);
   }
 
   @override
   Widget build(BuildContext context) {
-    late  User1 user1=  Provider.of<UserProvider>(context).getUser;
-    late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late User1 user1 = Provider.of<UserProvider>(context).getUser;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
 
     return Scaffold(
       backgroundColor: Color(themedata.ScaffoldbackColor),
@@ -97,25 +93,31 @@ void _scrollToTop() {
                 widget.snap['Group Pic'],
               ),
             ),
-          const  SizedBox(
-            width: 10,
+            const SizedBox(
+              width: 10,
             ),
             Text(
               widget.snap['Group Name'],
-              style:  TextStyle(
+              style: TextStyle(
                 color: Color(themedata.AppbartextColor),
               ),
-              ),
+            ),
           ],
         ),
-          iconTheme: IconThemeData(
-            color: Color(themedata.AppbariconColor),
-          ),
+        iconTheme: IconThemeData(
+          color: Color(themedata.AppbariconColor),
+        ),
       ),
       body: StreamBuilder(
-        stream: FirebaseFirestore.instance.collection("Groups").doc(widget.snap['Group Uid']).collection("Chats").orderBy('Message Time',descending: true).snapshots(),
-          builder: (context,AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>>snapshots){
-            if(snapshots.connectionState==ConnectionState.waiting){
+          stream: FirebaseFirestore.instance
+              .collection("Groups")
+              .doc(widget.snap['Group Uid'])
+              .collection("Chats")
+              .orderBy('Message Time', descending: true)
+              .snapshots(),
+          builder: (context,
+              AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshots) {
+            if (snapshots.connectionState == ConnectionState.waiting) {
               return const Center(
                 child: CircularProgressIndicator(
                   color: Colors.lightBlueAccent,
@@ -123,100 +125,90 @@ void _scrollToTop() {
               );
             }
             return ListView.builder(
-              reverse: true,
-              controller: _scrollController,
+                reverse: true,
+                controller: _scrollController,
                 itemCount: snapshots.data!.docs.length,
                 itemBuilder: (context, index) => Container(
-                  child: GestureDetector(
-                    onTap:()async{
-                      if(snapshots.data!.docs[index].data()['author uid']==user1.UID){
-                        _options(context,snapshots.data!.docs[index]);
-                      }
-                    },
-                    child: Gchatcard(
-                      snap: snapshots.data!.docs[index].data(),
-                    ),
-                  ),
-                )
-            );
-          }
-      ),
+                      child: GestureDetector(
+                        onTap: () async {
+                          if (snapshots.data!.docs[index]
+                                  .data()['author uid'] ==
+                              user1.UID) {
+                            _options(context, snapshots.data!.docs[index]);
+                          }
+                        },
+                        child: Gchatcard(
+                          snap: snapshots.data!.docs[index].data(),
+                        ),
+                      ),
+                    ));
+          }),
       floatingActionButton: _showBackToTopButton == false
           ? null
           : FloatingActionButton(
-              onPressed:()=> _scrollToTop(),
-              child: const Icon(
-                Icons.arrow_downward
-                ),
+              onPressed: () => _scrollToTop(),
+              child: const Icon(Icons.arrow_downward),
               backgroundColor: Colors.transparent,
             ),
-       bottomNavigationBar: SafeArea(
+      bottomNavigationBar: SafeArea(
           child: Container(
-            height: kToolbarHeight,
-            margin: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom
+        height: kToolbarHeight,
+        margin:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: const EdgeInsets.only(
+          left: 16,
+          right: 8,
+        ),
+        child: Row(
+          children: [
+            CircleAvatar(
+              backgroundImage: NetworkImage(user1.ppurl!),
+              radius: 18,
             ),
-            padding: const EdgeInsets.only(
-              left: 16,
-              right: 8,
-            ),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage: NetworkImage(user1.ppurl!),
-                  radius: 18,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                        left: 12.0,
-                        right: 1.0
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 12.0, right: 1.0),
+                child: TextField(
+                  controller: text,
+                  decoration: InputDecoration(
+                    hintText: "Chat as ${user1.Username}",
+                    hintStyle: const TextStyle(
+                      color: Colors.grey,
                     ),
-                    child: TextField(
-                      controller: text,
-                      decoration: InputDecoration(
-                        hintText: "Chat as ${user1.Username}",
-                        hintStyle: const TextStyle(
-                          color: Colors.grey,
-                        ),
-                        border: InputBorder.none,
-                      ),
-                      style:  TextStyle(
-                        color: Color(themedata.BottomNavTextColor),
-                      ),
-                    ),
+                    border: InputBorder.none,
+                  ),
+                  style: TextStyle(
+                    color: Color(themedata.BottomNavTextColor),
                   ),
                 ),
-                ElevatedButton(
-                  onPressed: ()async{
-                    setState(() {
-                      plaintext=text.text;
-                      text.text="";
-                    });
-                    enctext= await Encryption.encrypt(plaintext);
-                    String ress= await FirestoreMethods().Groupchat(widget.groupid, user1.UID!, enctext, user1.ppurl!,user1.Username!);
-                    Showsnackbar(ress, context);
-                  },
-                  child: const FaIcon(
-                      FontAwesomeIcons.featherPointed
-                  ),
-                  style: ElevatedButton.styleFrom(
-                      elevation: 0.0, 
-                      backgroundColor: Colors.lightBlueAccent,
-                      shadowColor: Colors.black,
-                      side: const BorderSide(
-                        color: Colors.white70,
-                        width: 2.0,
-                      ),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(100.0)
-                      )
-                  ),
-                )
-              ],
+              ),
             ),
-          )
-      ),
+            ElevatedButton(
+              onPressed: () async {
+                setState(() {
+                  plaintext = text.text;
+                  text.text = "";
+                });
+                enctext = await Encryption.encrypt(plaintext);
+                String ress = await FirestoreMethods().Groupchat(widget.groupid,
+                    user1.UID!, enctext, user1.ppurl!, user1.Username!);
+                Showsnackbar(ress, context);
+              },
+              child: const FaIcon(FontAwesomeIcons.featherPointed),
+              style: ElevatedButton.styleFrom(
+                  elevation: 0.0,
+                  backgroundColor: Colors.lightBlueAccent,
+                  shadowColor: Colors.black,
+                  side: const BorderSide(
+                    color: Colors.white70,
+                    width: 2.0,
+                  ),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(100.0))),
+            )
+          ],
+        ),
+      )),
     );
   }
 }

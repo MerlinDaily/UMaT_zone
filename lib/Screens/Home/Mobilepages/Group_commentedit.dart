@@ -12,23 +12,26 @@ class Gcomedit extends StatefulWidget {
   final snap;
   final postid;
   final groupid;
-  const Gcomedit({Key? key,this.snap,this.postid,this.groupid}) : super(key: key);
+  const Gcomedit({Key? key, this.snap, this.postid, this.groupid})
+      : super(key: key);
 
   @override
   State<Gcomedit> createState() => _GcomeditState();
 }
 
 class _GcomeditState extends State<Gcomedit> {
-  TextEditingController text=TextEditingController();
+  TextEditingController text = TextEditingController();
   @override
   void initState() {
-    text.text=widget.snap['detail'];
+    text.text = widget.snap['detail'];
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-    late  User1 user1=  Provider.of<UserProvider>(context).getUser;
-    late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late User1 user1 = Provider.of<UserProvider>(context).getUser;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
     return Scaffold(
       backgroundColor: Color(themedata.ScaffoldbackColor),
       appBar: AppBar(
@@ -36,13 +39,13 @@ class _GcomeditState extends State<Gcomedit> {
         iconTheme: IconThemeData(
           color: Color(themedata.AppbariconColor),
         ),
-        title:  Text(
+        title: Text(
           "Edit Comment",
           style: TextStyle(
             color: Color(themedata.AppbartextColor),
           ),
         ),
-        backgroundColor:Color(themedata.AppbarbackColor) ,
+        backgroundColor: Color(themedata.AppbarbackColor),
       ),
       body: SafeArea(
         child: Container(
@@ -50,9 +53,8 @@ class _GcomeditState extends State<Gcomedit> {
           child: Card(
             color: Color(themedata.CardBackgroundColor),
             elevation: 4.0,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50)
-            ),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -61,47 +63,46 @@ class _GcomeditState extends State<Gcomedit> {
                       CircleAvatar(
                         maxRadius: 18,
                         backgroundImage: NetworkImage(user1.ppurl!),
-                        backgroundColor:Colors.transparent,
+                        backgroundColor: Colors.transparent,
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(
-                            left: 5
-                        ),
+                        padding: const EdgeInsets.only(left: 5),
                         child: SizedBox(
-                          width: MediaQuery.of(context).size.width*0.5,
+                          width: MediaQuery.of(context).size.width * 0.5,
                           child: Text(
                             user1.Username!,
                             style: TextStyle(
                               color: Color(themedata.CardTextColor),
                             ),
-                            ),
+                          ),
                         ),
                       )
                     ],
                   ),
-                  const SizedBox(height: 20,),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   TextField(
                     controller: text,
                     maxLines: 12,
-                    decoration:  InputDecoration(
-                      border: InputBorder.none,
-                      hintText: "Edit comment as ${user1.Username}",
-                      label: Text(
-                        "Edit comment as ${user1.Username}",
-                        style: TextStyle(
-                          color: Color(themedata.CardTextColor),
-                        ),
-                        )
-                    ),
+                    decoration: InputDecoration(
+                        border: InputBorder.none,
+                        hintText: "Edit comment as ${user1.Username}",
+                        label: Text(
+                          "Edit comment as ${user1.Username}",
+                          style: TextStyle(
+                            color: Color(themedata.CardTextColor),
+                          ),
+                        )),
                     style: TextStyle(
                       color: Color(themedata.CardTextColor),
                     ),
                   ),
-                const Divider(
+                  const Divider(
                     height: 20,
                     thickness: 2,
                   ),
-                const SizedBox(
+                  const SizedBox(
                     height: 40,
                   )
                 ],
@@ -113,16 +114,17 @@ class _GcomeditState extends State<Gcomedit> {
       floatingActionButton: FloatingActionButton(
         elevation: 4.0,
         backgroundColor: Colors.lightBlueAccent,
-        onPressed: () async{
-          String ress= await FirestoreMethods().Editgroupcomment(widget.groupid,widget.postid, widget.snap['Comment Uid'], text.text);
-          await  Showsnackbar(ress, context);
+        onPressed: () async {
+          String ress = await FirestoreMethods().Editgroupcomment(
+              widget.groupid,
+              widget.postid,
+              widget.snap['Comment Uid'],
+              text.text);
+          await Showsnackbar(ress, context);
           Navigator.of(context).pop();
         },
-        child: const FaIcon(
-            FontAwesomeIcons.comment
-        ),
+        child: const FaIcon(FontAwesomeIcons.comment),
       ),
     );
   }
 }
-

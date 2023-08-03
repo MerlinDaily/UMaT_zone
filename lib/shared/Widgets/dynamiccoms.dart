@@ -9,11 +9,10 @@ import '../../Provider/user_provider.dart';
 import '../../Screens/Home/Mobilepages/Meditcomment.dart';
 import '../Pop_up.dart';
 
-
 class dycomcard extends StatefulWidget {
   final snap;
   final postid;
-  const dycomcard({Key? key,this.snap,this.postid}) : super(key: key);
+  const dycomcard({Key? key, this.snap, this.postid}) : super(key: key);
 
   @override
   State<dycomcard> createState() => _dycomcardState();
@@ -22,8 +21,7 @@ class dycomcard extends StatefulWidget {
 class _dycomcardState extends State<dycomcard> {
   @override
   Widget build(BuildContext context) {
-    late  User1 user1=  Provider.of<UserProvider>(context).getUser;
-    
+    late User1 user1 = Provider.of<UserProvider>(context).getUser;
 
     return Container(
       padding: const EdgeInsets.symmetric(
@@ -31,20 +29,23 @@ class _dycomcardState extends State<dycomcard> {
         horizontal: 16,
       ),
       child: Card(
-        color:Colors.white,
+        color: Colors.white,
         child: Container(
           padding: const EdgeInsets.all(5.0),
           child: Column(
             children: [
               Row(
                 children: [
-                widget.snap['Profile Pic']==""?const CircleAvatar(
-                  radius:16,
-                  backgroundImage: AssetImage('Assets/hac.jpg'),
-                ) : CircleAvatar(
-                    radius: 16,
-                    backgroundImage: NetworkImage(widget.snap['Profile Pic']),
-                  ),
+                  widget.snap['Profile Pic'] == ""
+                      ? const CircleAvatar(
+                          radius: 16,
+                          backgroundImage: AssetImage('Assets/hac.jpg'),
+                        )
+                      : CircleAvatar(
+                          radius: 16,
+                          backgroundImage:
+                              NetworkImage(widget.snap['Profile Pic']),
+                        ),
                   Expanded(
                     child: Padding(
                       padding: const EdgeInsets.only(
@@ -59,7 +60,7 @@ class _dycomcardState extends State<dycomcard> {
                               children: [
                                 TextSpan(
                                   text: widget.snap['author'],
-                                  style:  const TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
                                   ),
@@ -71,20 +72,21 @@ class _dycomcardState extends State<dycomcard> {
                                     fontStyle: FontStyle.italic,
                                   ),
                                 ),
-
                               ],
                             ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(
-                              top: 4.0,),
+                              top: 4.0,
+                            ),
                             child: Text(
-                              DateFormat.yMMMd().format(widget.snap['Comment Time'].toDate(),),
+                              DateFormat.yMMMd().format(
+                                widget.snap['Comment Time'].toDate(),
+                              ),
                               style: const TextStyle(
                                   color: Colors.grey,
                                   fontSize: 10,
-                                  fontStyle: FontStyle.italic
-                              ),
+                                  fontStyle: FontStyle.italic),
                             ),
                           )
                         ],
@@ -93,52 +95,50 @@ class _dycomcardState extends State<dycomcard> {
                   )
                 ],
               ),
-           widget.snap['author uid']==user1.UID?   Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  TextButton(
-                      onPressed: (){
-                        if(kIsWeb){
-                          Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context)=>webcomedit(
-                                  snap: widget.snap,
-                                  postid: widget.postid,
-                                ),
-                              )
-                          );
-                        }else{
-                          Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context)=>Mobcomedit(
-                                  snap: widget.snap,
-                                  postid: widget.postid,
-                                ),
-                              )
-                          );
-                        }
-                      },
-                      child: const Text(
-                        "Edit",
-                        style: TextStyle(
-                          color: Colors.lightBlueAccent,
-                        ),
-                      )
-                  ),
-                  TextButton(
-                      onPressed: ()async{
-                        String ress= await FirestoreMethods().Deletecomment(widget.postid, widget.snap['Comment Uid']);
-                        Showsnackbar(ress, context);
-                      },
-                      child: const Text(
-                        "Delete",
-                        style: TextStyle(
-                          color: Colors.lightBlueAccent,
-                        ),
-                      )
-                  ),
-                ],
-              ):const SizedBox(),
+              widget.snap['author uid'] == user1.UID
+                  ? Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                            onPressed: () {
+                              if (kIsWeb) {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => webcomedit(
+                                    snap: widget.snap,
+                                    postid: widget.postid,
+                                  ),
+                                ));
+                              } else {
+                                Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) => Mobcomedit(
+                                    snap: widget.snap,
+                                    postid: widget.postid,
+                                  ),
+                                ));
+                              }
+                            },
+                            child: const Text(
+                              "Edit",
+                              style: TextStyle(
+                                color: Colors.lightBlueAccent,
+                              ),
+                            )),
+                        TextButton(
+                            onPressed: () async {
+                              String ress = await FirestoreMethods()
+                                  .Deletecomment(widget.postid,
+                                      widget.snap['Comment Uid']);
+                              Showsnackbar(ress, context);
+                            },
+                            child: const Text(
+                              "Delete",
+                              style: TextStyle(
+                                color: Colors.lightBlueAccent,
+                              ),
+                            )),
+                      ],
+                    )
+                  : const SizedBox(),
             ],
           ),
         ),

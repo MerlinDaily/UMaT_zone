@@ -1,40 +1,40 @@
 {
   "project_info": {
-    "project_number": "753826641492",
-    "project_id": "bsocialp",
-    "storage_bucket": "bsocialp.appspot.com"
+    "project_number": "644208405876",
+    "project_id": "umat-zone",
+    "storage_bucket": "umat-zone.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:753826641492:android:abea7295963a275ca25fc1",
+        "mobilesdk_app_id": "1:644208405876:android:3ffd2400ea7782ef6ed021",
         "android_client_info": {
           "package_name": "com.blake.social"
         }
       },
       "oauth_client": [
         {
-          "client_id": "753826641492-v0rci84odojo9mcun7n8bs8mp547stqj.apps.googleusercontent.com",
+          "client_id": "644208405876-aqe24vdlfp732rcta1c0f2nlh4ssj909.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCNU4hDLJnu4AnDY_9R5OVeJpL_izckYnA"
+          "current_key": "AIzaSyDhFZ7FQVpP_juyAE6_I0pLRpUR51Wj4eg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "753826641492-v0rci84odojo9mcun7n8bs8mp547stqj.apps.googleusercontent.com",
+              "client_id": "644208405876-4elgkfsq2ut284mc3q59h2ac4oail5s6.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "753826641492-ss9pfdbd56rma4lr8cjuj90e5ddf634h.apps.googleusercontent.com",
+              "client_id": "644208405876-60umh9pippttd0d3n8nm1gthj36c5l5t.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.project.forum3"
+                "bundle_id": "com.blake.social"
               }
             }
           ]
@@ -43,34 +43,34 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:753826641492:android:6cc1ac2fd7217388a25fc1",
+        "mobilesdk_app_id": "1:644208405876:android:e7a2f8c359e820736ed021",
         "android_client_info": {
-          "package_name": "com.project.forum3"
+          "package_name": "com.umat.zone"
         }
       },
       "oauth_client": [
         {
-          "client_id": "753826641492-v0rci84odojo9mcun7n8bs8mp547stqj.apps.googleusercontent.com",
+          "client_id": "644208405876-aqe24vdlfp732rcta1c0f2nlh4ssj909.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCNU4hDLJnu4AnDY_9R5OVeJpL_izckYnA"
+          "current_key": "AIzaSyDhFZ7FQVpP_juyAE6_I0pLRpUR51Wj4eg"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "753826641492-v0rci84odojo9mcun7n8bs8mp547stqj.apps.googleusercontent.com",
+              "client_id": "644208405876-4elgkfsq2ut284mc3q59h2ac4oail5s6.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "753826641492-ss9pfdbd56rma4lr8cjuj90e5ddf634h.apps.googleusercontent.com",
+              "client_id": "644208405876-60umh9pippttd0d3n8nm1gthj36c5l5t.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.project.forum3"
+                "bundle_id": "com.blake.social"
               }
             }
           ]

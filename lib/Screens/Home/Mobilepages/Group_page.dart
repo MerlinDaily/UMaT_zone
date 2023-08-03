@@ -17,55 +17,53 @@ class GroupPage extends StatefulWidget {
 }
 
 class _GroupPageState extends State<GroupPage> {
-
-@override
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    setState(() {
-      
-    });
+    setState(() {});
   }
 
   @override
   Widget build(BuildContext context) {
-        late  User1 user1=  Provider.of<UserProvider>(context).getUser;
-        late  UserThemeData themedata= Provider.of<ThemeProvider>(context).getUserThemeData;
+    late User1 user1 = Provider.of<UserProvider>(context).getUser;
+    late UserThemeData themedata =
+        Provider.of<ThemeProvider>(context).getUserThemeData;
 
     return Scaffold(
       backgroundColor: Color(themedata.ScaffoldbackColor),
-      appBar:AppBar(
+      appBar: AppBar(
         backgroundColor: Color(themedata.AppbarbackColor),
         iconTheme: IconThemeData(
           color: Color(themedata.AppbariconColor),
         ),
-        title:  Text(
+        title: Text(
           "Group List",
           style: TextStyle(
-            color:Color(themedata.AppbartextColor),
+            color: Color(themedata.AppbartextColor),
           ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: (){
-                Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=>Creation(),
-                        )
-                    );
-              },
-             child:  Text(
+        ),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => Creation(),
+              ));
+            },
+            child: Text(
               "Create New Colony",
-              style: TextStyle(
-                color:Color(themedata.AppbartextbuttonColor!)
-              ),
-              ),
-             )
-          ],
+              style: TextStyle(color: Color(themedata.AppbartextbuttonColor!)),
+            ),
+          )
+        ],
       ),
-      body:StreamBuilder(
-        stream: FirebaseFirestore.instance.collection('Groups').where('Members',arrayContains: user1.UID).snapshots(),
-        builder: (context, AsyncSnapshot<QuerySnapshot<Map<String,dynamic>>>snapshot){
-          if(snapshot.connectionState==ConnectionState.waiting){
+      body: StreamBuilder(
+        stream: FirebaseFirestore.instance
+            .collection('Groups')
+            .where('Members', arrayContains: user1.UID)
+            .snapshots(),
+        builder: (context,
+            AsyncSnapshot<QuerySnapshot<Map<String, dynamic>>> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
             return const Center(
               child: CircularProgressIndicator(),
             );
@@ -73,31 +71,19 @@ class _GroupPageState extends State<GroupPage> {
           return ListView.builder(
               itemCount: snapshot.data!.docs.length,
               itemBuilder: (context, index) => GestureDetector(
-                onTap: (){
-                  Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context)=>Ghome(
-                snap: snapshot.data!.docs[index].data(),
-              ),
-            )
-        );
-                },
-                child: GroupCard(
-                  snap: snapshot.data!.docs[index].data(),
-                ),
-              )
-          );
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => Ghome(
+                          snap: snapshot.data!.docs[index].data(),
+                        ),
+                      ));
+                    },
+                    child: GroupCard(
+                      snap: snapshot.data!.docs[index].data(),
+                    ),
+                  ));
         },
       ),
     );
   }
 }
-
-
-
-
-
-
-
-
-
